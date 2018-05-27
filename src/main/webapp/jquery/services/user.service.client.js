@@ -9,10 +9,10 @@ function UserServiceClient() {
 	this.getProfile = getProfile;
 	this.updateProfile = updateProfile;
 	this.logout = logout;
-   	this.url = 'https://glacial-beach-96186.herokuapp.com/api/user';
-   	this.reg = 'https://glacial-beach-96186.herokuapp.com/api/register';
-   	this.logi = 'https://glacial-beach-96186.herokuapp.com/api/login';
-   	this.pro = 'https://glacial-beach-96186.herokuapp.com/api/profile'
+   	this.url = 'https://localhost:8080/api/user';
+   	this.reg = 'https://localhost:8080/api/register';
+   	this.logi = 'http://localhost:8080/api/login';
+   	this.pro = 'http://localhost:8080/api/profile'
    	this.logo = 'http://localhost:8080/api/logout';
    	var self = this;
 
