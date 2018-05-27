@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href=
+  "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="../../services/user.service.client.js"></script>
+  <script src="../../models/user.model.client.js"></script>
+  <script src="user-admin.controller.client.js"></script>
+
+</head>
+<body>
+  <div class="container">
+  <h1>User Admin</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+        <th></th>
+      </tr> 
+      <tr class="inputRow" id="0">
+        <th><input id="usernameFld" class="form-control" placeholder="Becky"/></th>
+        <th><input id="passwordFld" class="form-control" placeholder="Password" type="password"/></th>
+        <th><input id="firstNameFld" class="form-control" placeholder="Fisrt"/></th>
+        <th><input id="lastNameFld" class="form-control" placeholder="Last"/></th>
+        <th><select id="roleFld" class="form-control">
+          <option value="FACULTY">Faculty</option>
+          <option value="STUDENT">Student</option>
+          <option value="ADMIN">Admin</option>
+        </select></th>
+        <th><span class="float-right" style="white-space: nowrap">
+            <button class="fa-2x fa fa-search wbdv-search"></button>
+            <button class="fa-2x fa fa-plus wbdv-create"></button> 
+            <button class="fa-2x fa fa-check wbdv-update"></button>
+        </span></th>
+      </tr>        
+    </thead>       
+    <tbody>
+      <tr class="template">
+        <td class="username">Ali</td>
+        <td>&nbsp;</td>
+        <td class="firstName">First Name</td>
+        <td class="lastName">Last Name</td>
+        <td class="role"></td>
+        <td><span class="float-right" style="white-space: nowrap">
+            <button class="fa-2x fa fa-times wbdv-delete"></button> 
+            <button class="fa-2x fa fa-pencil wbdv-edit"></button>
+        </span></td>
+      </tr> 
+    </tbody>
+    <tfoot></tfoot>
+  </table>
+
+  </div>
+
+</body>
+</html>
