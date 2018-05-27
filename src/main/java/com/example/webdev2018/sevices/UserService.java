@@ -65,6 +65,7 @@ public class UserService {
 		return null;
 	}
 
+	// findAll
 	@GetMapping("/api/user")
 	public Iterable<User> findAllUsers(
 			@RequestParam(name="username",
@@ -96,18 +97,50 @@ public class UserService {
 	}
 	
 	// login
-		@PostMapping("/api/login")
-		public User login(@RequestBody User user, HttpSession session) { //
-			Iterable<User> registedUser = findAllUsers(
-					user.getUsername(), user.getPassword());
-			Iterator<User> itr = registedUser.iterator();
-			if (itr.hasNext()) {
-				User loggedinUser = itr.next();
-				session.setAttribute("user", loggedinUser);
-				return (User)session.getAttribute("user");
-			}
-			return null;
+	@PostMapping("/api/login")
+	public User login(@RequestBody User user, HttpSession session) { //
+		Iterable<User> registedUser = findAllUsers(
+				user.getUsername(), user.getPassword());
+		Iterator<User> itr = registedUser.iterator();
+		if (itr.hasNext()) {
+			User loggedinUser = itr.next();
+			session.setAttribute("user", loggedinUser);
+			return (User)session.getAttribute("user");
 		}
-		
+		return null;
+	}
+	
+	// getProfile
+	@GetMapping("api/profile")
+	public User getProfile(HttpSession session) {
+		User currentUser = (User)session.getAttribute("user");
+		return (currentUser != null)? currentUser : null;		
+	}
+	
+	// updateProfile
+	@PutMapping("api/profile")
+	public User updateProfile(@RequestBody User newUser, HttpSession session) {
+		User currentUser = (User)session.getAttribute("user");
+		if (currentUser != null) {
+			Optional<User> data = repository.findById(currentUser.getId());
+			if(data.isPresent()) {
+				User user = data.get();
+				user.setPhone(newUser.getPhone());
+				user.setRole(newUser.getRole());
+				user.setEmail(newUser.getEmail());
+				user.setDateOfBirth(newUser.getDateOfBirth());
+				repository.save(user);
+				session.setAttribute("user", user);
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	// logout
+	@PostMapping("api/logout")
+	public void logout(HttpSession session) {
+		session.invalidate();
+	}
 
 }

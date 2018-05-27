@@ -50,7 +50,7 @@ function UserServiceClient() {
 
    	function logout() {
    		return fetch(self.logo, {
-   			method: 'put',
+   			method: 'post',
    			credentials: 'same-origin'
 		});
    	}
