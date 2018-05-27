@@ -34,7 +34,7 @@ function UserServiceClient() {
 	function login(user) {
 		return fetch(self.logi, {
 			credentials: 'same-origin',
-			method: 'put',
+			method: 'post',
 			body: JSON.stringify(user),
 			headers: {
 				'content-type': 'application/json'

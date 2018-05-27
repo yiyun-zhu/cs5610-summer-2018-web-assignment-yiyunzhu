@@ -68,8 +68,13 @@ public class UserService {
 	@GetMapping("/api/user")
 	public Iterable<User> findAllUsers(
 			@RequestParam(name="username",
-			required=false) String username) {
-		if (username != null) {
+			required=false) String username,
+			@RequestParam(name="password",
+			required=false) String password) {
+		if (username != null && password != null) {
+			Iterable<User> user = repository.findUserByCredentials(username, password);
+			return user;  
+		} else if (username != null) {
 			Iterable<User> user = repository.findUserByUsername(username);
 			return user;
 		} else {
@@ -80,7 +85,7 @@ public class UserService {
 	// register
 	@PostMapping("/api/register")
 	public User register(@RequestBody User newUser, HttpSession session) { //
-		Iterable<User> user = findAllUsers(newUser.getUsername());
+		Iterable<User> user = findAllUsers(newUser.getUsername(), null);
 		Iterator<User> itr = user.iterator();
 		if (itr.hasNext()) {
 			return null;
@@ -89,5 +94,20 @@ public class UserService {
 		session.setAttribute("user", newData);
 		return newData;
 	}
+	
+	// login
+		@PostMapping("/api/login")
+		public User login(@RequestBody User user, HttpSession session) { //
+			Iterable<User> registedUser = findAllUsers(
+					user.getUsername(), user.getPassword());
+			Iterator<User> itr = registedUser.iterator();
+			if (itr.hasNext()) {
+				User loggedinUser = itr.next();
+				session.setAttribute("user", loggedinUser);
+				return (User)session.getAttribute("user");
+			}
+			return null;
+		}
+		
 
 }
