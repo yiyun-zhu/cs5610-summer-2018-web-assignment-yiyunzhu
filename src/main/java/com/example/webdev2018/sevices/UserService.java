@@ -1,8 +1,11 @@
 package com.example.webdev2018.sevices;
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webdev2018.models.User;
@@ -22,13 +26,7 @@ import com.example.webdev2018.repositories.UserRepository;
 public class UserService {
 	@Autowired
 	UserRepository repository;
-	
-	// findAll
-	@GetMapping("/api/user")
-	public List<User> findAllUsers() {
-		return (List<User>)repository.findAll();
-	}
-	
+		
 	// createNewUser
 	@PostMapping("/api/user")
 	public User createUser(@RequestBody User user) {
@@ -67,5 +65,29 @@ public class UserService {
 		return null;
 	}
 
+	@GetMapping("/api/user")
+	public Iterable<User> findAllUsers(
+			@RequestParam(name="username",
+			required=false) String username) {
+		if (username != null) {
+			Iterable<User> user = repository.findUserByUsername(username);
+			return user;
+		} else {
+			return repository.findAll();
+		}
+	}
+	
+	// register
+	@PostMapping("/api/register")
+	public User register(@RequestBody User newUser, HttpSession session) { //
+		Iterable<User> user = findAllUsers(newUser.getUsername());
+		Iterator<User> itr = user.iterator();
+		if (itr.hasNext()) {
+			return null;
+		}
+		User newData = createUser(newUser);		
+		session.setAttribute("user", newData);
+		return newData;
+	}
 
 }

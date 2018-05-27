@@ -34,7 +34,7 @@
 			alert("can't register!");
 		} else {
 			alert("successfully registed!");
-			window.location.href = '../profile/profile.template.client.html';
+			// window.location.href = '../profile/profile.template.client.html';
 		} 
 	}
 	
