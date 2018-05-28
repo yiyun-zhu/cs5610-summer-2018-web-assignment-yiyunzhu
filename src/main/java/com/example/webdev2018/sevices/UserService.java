@@ -122,17 +122,12 @@ public class UserService {
 	public User updateProfile(@RequestBody User newUser, HttpSession session) {
 		User currentUser = (User)session.getAttribute("user");
 		if (currentUser != null) {
-			Optional<User> data = repository.findById(currentUser.getId());
-			if(data.isPresent()) {
-				User user = data.get();
-				user.setPhone(newUser.getPhone());
-				user.setRole(newUser.getRole());
-				user.setEmail(newUser.getEmail());
-				user.setDateOfBirth(newUser.getDateOfBirth());
-				repository.save(user);
-				session.setAttribute("user", user);
-				return user;
-			}
+			currentUser.setPhone(newUser.getPhone());
+			currentUser.setRole(newUser.getRole());
+			currentUser.setEmail(newUser.getEmail());
+			currentUser.setDateOfBirth(newUser.getDateOfBirth());
+			repository.save(currentUser);
+			return currentUser;
 		}
 		return null;
 	}
