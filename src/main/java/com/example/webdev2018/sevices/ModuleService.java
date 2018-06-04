@@ -19,6 +19,17 @@ public class ModuleService {
 	@Autowired
 	ModuleRepository moduleRepository;
 	
+	@GetMapping("/api/course/{courseId}/module") 
+	public Iterable<Module> findAllModulesForCourse(
+				@PathVariable("courseId")int courseId) {
+		Optional<Course> data = courseRepository.findById(courseId);
+		if(data.isPresent()) {
+			Course course = data.get();
+			return course.getModules();
+		}
+		return null;
+	}
+	
 	@PostMapping("/api/course/{courseId}/module")
 	public Module createModule(
 					@PathVariable("courseId")int courseId,
