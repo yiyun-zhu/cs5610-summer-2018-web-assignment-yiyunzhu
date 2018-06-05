@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.webdev2018.models.Lesson;
 import com.example.webdev2018.models.Module;
@@ -36,4 +36,20 @@ public class LessonService {
 		return null;
 	}
 	
+	@GetMapping("/api/module/{mId}/lesson")
+	public Iterable<Lesson> findAllLessonsForModule(
+				@PathVariable("mId")int moduleId) {
+		Optional<Module> data = moduleRepository.findById(moduleId);
+		if(data.isPresent()) {
+			Module module = data.get();
+			return module.getLessons();
+		}
+		return null;
+	}
+	
+	@DeleteMapping("/api/lesson/{lId}")
+	public void deleteCourse(
+			@PathVariable("lId")int lessonId) {
+		lessonRepository.deleteById(lessonId);
+	}
 }
