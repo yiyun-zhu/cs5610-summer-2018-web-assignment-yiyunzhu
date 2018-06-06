@@ -52,4 +52,10 @@ public class LessonService {
 			@PathVariable("lId")int lessonId) {
 		lessonRepository.deleteById(lessonId);
 	}
+	
+	@GetMapping("/api/lesson")
+	public Iterable<Lesson> findAllLessons() {
+		return lessonRepository.findAll();
+	}
+
 }
