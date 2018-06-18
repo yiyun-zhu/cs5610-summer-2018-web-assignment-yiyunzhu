@@ -1,19 +1,43 @@
 package com.example.webdev2018.models;
 
-import javax.persistence.Entity;
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Widget {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String text;
+	private String name;
 	private String widgetType;
+	private String text;
 	private int size;
+	private String url;
+	@ManyToOne
+	@JsonIgnore
+	private Lesson lesson;
 	
-	
-	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Lesson getLesson() {
+		return lesson;
+	}
+	public void setLesson(Lesson lesson) {
+		this.lesson = lesson;
+	}
 	public int getSize() {
 		return size;
 	}
