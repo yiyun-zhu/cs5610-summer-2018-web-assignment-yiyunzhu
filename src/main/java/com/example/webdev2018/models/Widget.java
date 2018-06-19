@@ -15,16 +15,37 @@ public class Widget {
 	private String widgetType;
 	private String text;
 	private int size;
-	private String url;
+	private String href;
+	private String src;
+	private String listType;
+	private String listItems;
 	@ManyToOne
 	@JsonIgnore
 	private Lesson lesson;
 	
-	public String getUrl() {
-		return url;
+	public String getHref() {
+		return href;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setHref(String href) {
+		this.href = href;
+	}
+	public String getSrc() {
+		return src;
+	}
+	public void setSrc(String src) {
+		this.src = src;
+	}
+	public String getListItems() {
+		return listItems;
+	}
+	public void setListItems(String listItems) {
+		this.listItems = listItems;
+	}
+	public String getListType() {
+		return listType;
+	}
+	public void setListType(String listType) {
+		this.listType = listType;
 	}
 	public String getName() {
 		return name;

@@ -20,8 +20,22 @@ public class WidgetService {
 	@Autowired
 	LessonRepository lessonRepository;
 	
+	@GetMapping("/api/widget/{widgetId}")
+	public Widget findWidgetById(@PathVariable("widgetId")int widgetId) {
+		Optional<Widget> data = repository.findById(widgetId);
+		if (data.isPresent()) {
+			return data.get();
+		}
+		return null;
+	}
+	
+	@GetMapping("/api/widget")
+	public List<Widget> findAllWidgets() {
+		return (List<Widget>)repository.findAll();
+	}
+	
 	@GetMapping("/api/lesson/{lessonId}/widget")
-	public List<Widget> findAllWidgets(@PathVariable("lessonId")int lessonId) {
+	public List<Widget> findAllWidgetsForLesson(@PathVariable("lessonId")int lessonId) {
 		Optional<Lesson> data = lessonRepository.findById(lessonId);
 		if (data.isPresent()) {
 			Lesson lesson = data.get();
@@ -47,4 +61,20 @@ public class WidgetService {
 			}
 		}
 	}
+	
+	@DeleteMapping("/api/widget/{widgetId}")
+	public void deleteWidgetById(@PathVariable("widgetId")int widgetId) {
+		repository.deleteById(widgetId);
+	}
+	
+	@PutMapping("/api/widget/{widgetId")
+	public Widget updateWidgetById(@PathVariable("widgetId")int widgetId) {
+		Optional<Widget> data = repository.findById(widgetId);
+		if (data.isPresent()) {
+			return repository.save(data.get());
+		}
+		return null;
+	}
+	
+	
 }
